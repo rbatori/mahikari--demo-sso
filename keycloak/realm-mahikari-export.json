@@ -1,0 +1,115 @@
+{
+  "realm": "mahikari",
+  "enabled": true,
+  "displayName": "Mahikari",
+  "displayNameHtml": "<b>Mahikari</b>",
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "permanentLockout": false,
+  "maxFailureWaitSeconds": 900,
+  "minimumQuickLoginWaitSeconds": 60,
+  "waitIncrementSeconds": 60,
+  "quickLoginCheckMilliSeconds": 1000,
+  "maxDeltaTimeSeconds": 43200,
+  "failureFactor": 5,
+  "roles": {
+    "realm": [
+      {
+        "name": "vpn-full-access",
+        "description": "Acesso VPN completo à rede interna",
+        "composite": false
+      },
+      {
+        "name": "vpn-restricted",
+        "description": "Acesso VPN restrito (split tunnel, serviços específicos)",
+        "composite": false
+      },
+      {
+        "name": "vpn-admin",
+        "description": "Administrador — pode provisionar e revogar certificados VPN",
+        "composite": false
+      }
+    ]
+  },
+  "groups": [
+    {
+      "name": "vpn-users",
+      "realmRoles": ["vpn-full-access"]
+    },
+    {
+      "name": "vpn-admins",
+      "realmRoles": ["vpn-admin", "vpn-full-access"]
+    }
+  ],
+  "users": [
+    {
+      "username": "usuario.teste",
+      "email": "usuario.teste@mahikari.local",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Usuário",
+      "lastName": "Teste",
+      "groups": ["vpn-users"],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "CHANGE_ME",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "admin.vpn",
+      "email": "admin.vpn@mahikari.local",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Admin",
+      "lastName": "VPN",
+      "groups": ["vpn-admins"],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "CHANGE_ME",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "usuario.revogado",
+      "email": "usuario.revogado@mahikari.local",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Usuário",
+      "lastName": "Revogado",
+      "groups": ["vpn-users"],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "CHANGE_ME",
+          "temporary": false
+        }
+      ]
+    }
+  ],
+  "passwordPolicy": "length(8) and upperCase(1) and lowerCase(1) and digits(1) and specialChars(1)",
+  "eventsEnabled": true,
+  "eventsListeners": ["jboss-logging"],
+  "enabledEventTypes": [
+    "LOGIN",
+    "LOGIN_ERROR",
+    "LOGOUT",
+    "REGISTER",
+    "REGISTER_ERROR",
+    "CODE_TO_TOKEN",
+    "CODE_TO_TOKEN_ERROR",
+    "CLIENT_LOGIN",
+    "CLIENT_LOGIN_ERROR"
+  ],
+  "adminEventsEnabled": true,
+  "adminEventsDetailsEnabled": true
+}
